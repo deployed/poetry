@@ -1,8 +1,11 @@
-import { router } from "expo-router";
-import { TouchableOpacity, Text, View } from "react-native";
+import { Text, View } from "react-native";
 
 const App = () => {
-  return <View></View>;
+  return (
+    <View>
+      <Text>Index</Text>
+    </View>
+  );
 };
 
 export default App;
