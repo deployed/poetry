@@ -10,4 +10,6 @@
     },
     "jsx": "react"
   }
+  ,
+  "exclude": ["node_modules"]
 }
