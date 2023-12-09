@@ -1,8 +1,9 @@
 import {Text, ScrollView, View, Image} from "react-native"
 import React from "react"
 import useTheme from "@/hooks/useTheme"
+import {router} from "expo-router"
 
-const Poem = ({author, title, content}) => 
+const Poem = ({author, title, content, prevTitle, nextTitle}) => 
 {
     const theme = useTheme()
     const textAuthor = {
@@ -45,7 +46,7 @@ const Poem = ({author, title, content}) =>
     return (
         <View style={x}>
         <View style={navigation}>
-            <Image source={require("../../../assets/arrow.png")} style={{width:30,height:30}}/>
+            <Image onTouchEnd={() => router.back()} source={require("../../../assets/arrow.png")} style={{width:30,height:30}}/>
             <Text style={textAuthor}>{author}</Text>
             <Image source={require("../../../assets/heart2.png")} style={{width:30,height:30}}/>
         </View>
@@ -59,12 +60,17 @@ const Poem = ({author, title, content}) =>
                 })}
             </View>
             <View style={navigationArrows}>
-                <View style={{...arrow,marginLeft:80}}>
+                {prevTitle?
+                (<View onTouchEnd={() => router.replace({pathname: "/poem/", params:{title: prevTitle}})} style={{...arrow,marginLeft:80}}>
                     <Image source={require("../../../assets/Vector.png")}/>
-                </View>
-                <View style={{...arrow,transform:"rotate(180deg)",marginRight:80}}>
-                    <Image source={require("../../../assets/Vector.png")}/>
-                </View>
+                </View>):null
+                }
+                {nextTitle?
+                (<View onTouchEnd={() => router.replace({pathname: "/poem/", params:{title: nextTitle}})} style={{...arrow,transform:"rotate(180deg)",marginRight:80}}>
+                <Image source={require("../../../assets/Vector.png")}/>
+            </View>):null
+            }
+                
             </View>
         </ScrollView>
         </View>   

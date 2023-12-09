@@ -26,16 +26,19 @@ const App = () => {
   style={{
     borderBottomColor: 'black',
     borderBottomWidth: 2,
+    
   }}
 />
       }
 data={getDatabase}
-renderItem={({item}) => (
+renderItem={({item, index}) => (
 <Link 
   href={{
   pathname: "/poem",
   params:{
-    title: item.title
+    title: item.title,
+    prevTitle: index === 0 ? undefined : getDatabase[index-1].title,
+    nextTitle: index === getDatabase.length-1 ? undefined :getDatabase[index+1].title
   }
   }} >
 <AuthorInfo title={item.title} author={item.author} linecount={item.linecount}  lines={item.lines} />
