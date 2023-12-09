@@ -17,8 +17,7 @@ const App = () => {
         console.error(error);
       });
   };
-  useEffect(() => {fetchPoems(); console.log(getDatabase) }, [] )
-  console.log(getDatabase)
+  useEffect(() => {fetchPoems();}, [] )
   return (
     <View>
       <FlatList 
@@ -31,21 +30,22 @@ const App = () => {
 />
       }
 data={getDatabase}
-renderItem={({item}) => <AuthorInfo title={item.title} author={item.author} linecount={item.linecount}  lines={item.lines} /> }
+renderItem={({item}) => (
+<Link 
+  href={{
+  pathname: "/poem",
+  params:{
+    title: item.title
+  }
+  }} >
+<AuthorInfo title={item.title} author={item.author} linecount={item.linecount}  lines={item.lines} />
+</Link>
+)
+}
 />
-      {/* <Link
-        href={{
-          pathname: "/poem/123",
-        }}
-      >
-        View sddffdf
-      </Link> */}
     </View>
   );
 };
 
 export default App;
-function UseEffect(arg0: () => void, arg1: never[]) {
-  throw new Error("Function not implemented.");
-}
 
