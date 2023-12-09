@@ -1,14 +1,16 @@
 import AuthorInfo from "@/components/AuthorInfo/AuthorInfo";
 import { Link } from "expo-router";
 import React, { useEffect, useState } from "react";
-import { View, Text, FlatList } from "react-native";
-import {AuthorInfoProps, PoemInfo} from "@/types/types"
+import { View, Text, FlatList, Pressable } from "react-native";
+import {AuthorInfoProps, PoemInfo} from "@/types/types";
+import SearchBar from "@/components/SearchBar/SearchBar";
 
 
 const App = () => {
   const [getDatabase, setDatabase] = useState<PoemInfo[]>([])
+  const [getSorted, setSorted] = useState<boolean>(false)
   const fetchPoems = () => {
-    return fetch('https://poetrydb.org/author,title/all;all')
+    return fetch('https://poetrydb.org/author/Andrew%20Marvell' )
       .then(response => response.json())
       .then(json => {
         setDatabase(json)
@@ -20,6 +22,10 @@ const App = () => {
   useEffect(() => {fetchPoems();}, [] )
   return (
     <View>
+      <SearchBar setter={setDatabase} />
+      <Pressable style={{padding: 20}}  onPress={() => {setSorted( !getSorted )} }>
+  <Text>Sorted: {getSorted.toString()}</Text>
+</Pressable>
       <FlatList 
       ItemSeparatorComponent={() =>
         <View
